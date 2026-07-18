@@ -1,0 +1,29 @@
+import java.util.*;
+class Main {
+ static void pigeonholeSort(int[] arr) {
+        int min = arr[0];
+        int max = arr[0];
+        for (int num : arr) {
+            if (num < min)
+                min = num;
+            if (num > max)
+                max = num;
+        }
+        int[] holes = new int[max - min + 1];
+        for (int num : arr) {
+            holes[num - min]++;
+        }
+        int index = 0;
+        for (int i = 0; i < holes.length; i++) {
+            while (holes[i] > 0) {
+                arr[index++] = i + min;
+                holes[i]--;
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int[] arr = {34, 2, 5, 4, 6, 2, 34, 1};
+        pigeonholeSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+}
